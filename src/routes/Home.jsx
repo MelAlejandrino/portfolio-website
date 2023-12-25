@@ -16,11 +16,39 @@ import { motion } from "framer-motion";
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
+    const imageList = Array.from(document.querySelectorAll('img')); // Select all images
+
+    const checkImagesLoaded = () => {
+      const allLoaded = imageList.every((img) => img.complete);
+      if (allLoaded) {
+        setImagesLoaded(true);
+      }
+    };
+
+    checkImagesLoaded();
+
+    imageList.forEach((img) => {
+      img.addEventListener('load', checkImagesLoaded);
+    });
+
+    return () => {
+      imageList.forEach((img) => {
+        img.removeEventListener('load', checkImagesLoaded);
+      });
+    };
   }, []);
+
+  useEffect(() => {
+    setTimeout(()=>{
+      if (isLoading && imagesLoaded) {
+        setIsLoading(false);
+      }
+    },2000)
+
+  }, [isLoading, imagesLoaded]);
 
   const homeVariants = {
     initial: {
@@ -35,7 +63,7 @@ export const Home = () => {
       opacity: 1,
       transition: {
         duration: 1,
-        ease: "easeOut",
+        ease: 'easeOut',
       },
     },
   };
