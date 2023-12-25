@@ -11,7 +11,7 @@ import profile from "@assets/profile.png";
 import { items, archiveItems } from "@src/data";
 import { useState, useEffect } from "react";
 import pdf from "@assets/resume.pdf";
-import Loader from "@components/loader";
+import Loader from "@components/Loader";
 import { motion } from "framer-motion";
 
 export const Home = () => {
