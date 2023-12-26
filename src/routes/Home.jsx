@@ -7,7 +7,7 @@ import {
   mdiOpenInNew,
 } from "@mdi/js";
 import { Link } from "react-router-dom";
-import profile from "@assets/profile.png";
+import profile from "@assets/profile.webp";
 import { items, archiveItems } from "@src/data";
 import { useState, useEffect } from "react";
 import pdf from "@assets/resume.pdf";

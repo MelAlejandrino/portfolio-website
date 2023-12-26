@@ -1,7 +1,7 @@
-import marycrochet from "@assets/marycrochet.png";
-import iCoffin from "@assets/icoffin.png";
-import melcommissioner from "@assets/melcommissioner.png";
-import mary from "@assets/mary.png";
+import marycrochet from "@assets/marycrochet.webp";
+import iCoffin from "@assets/icoffin.webp";
+import melcommissioner from "@assets/melcommissioner.webp";
+import mary from "@assets/mary.webp";
 
 const items = [
   {
