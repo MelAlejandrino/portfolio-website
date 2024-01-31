@@ -12,7 +12,7 @@ const items = [
     link: "https://marycrochet.vercel.app/",
     github: "https://github.com/MelAlejandrino/marycrochet-nextjs",
     stacks:
-      "Next JS - Facebook Graph API - Figma - Vercel - Localstorage - React Router",
+      "Next JS - Facebook Graph API - Figma - Vercel - React Router",
   },
   {
     title: "iCoffin",
