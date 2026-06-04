@@ -4,7 +4,7 @@ interface HeroProps {
 
 export function Hero({ children }: HeroProps) {
   return (
-    <section className="min-h-screen flex flex-col">
+    <section className="min-h-screen min-h-dvh flex flex-col">
       {/* Name + links — centered-ish via mt-auto split */}
       <div className="mt-auto px-5 sm:px-8">
         <h1
