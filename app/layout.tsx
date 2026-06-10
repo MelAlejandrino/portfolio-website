@@ -19,7 +19,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://meldev-ph.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Mel Alejandrino — Frontend Developer | React, Next.js, Laravel",
   description:
     "Frontend developer based in Cagayan de Oro, Philippines. Specializing in ReactJS, NextJS, and Laravel — building clean, responsive web applications for real business problems. Portfolio featuring client work at Syntactics Inc. and personal open-source projects.",
@@ -38,10 +41,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mel Alejandrino" }],
   creator: "Mel Alejandrino",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Mel Alejandrino — Frontend Developer",
     description:
       "Frontend developer specializing in ReactJS, NextJS, and Laravel. Portfolio featuring client work and personal open-source projects.",
+    url: siteUrl,
     type: "website",
     locale: "en_US",
     siteName: "Mel Alejandrino",
