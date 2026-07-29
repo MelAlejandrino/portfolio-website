@@ -23,9 +23,12 @@ const siteUrl = "https://meldev-ph.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Mel Alejandrino — Frontend Developer | React, Next.js, Laravel",
+  // ponytail: 51 chars — under Google's ~60 char cutoff. Laravel dropped from the
+  // title on purpose; it's still in the description, keywords, and JSON-LD knowsAbout.
+  title: "Mel Alejandrino — React & Next.js Frontend Developer",
+  // ponytail: 149 chars — Google truncates around 155–160, so this renders whole.
   description:
-    "Frontend developer based in Cagayan de Oro, Philippines. Specializing in ReactJS, NextJS, and Laravel — building clean, responsive web applications for real business problems. Portfolio featuring client work at Syntactics Inc. and personal open-source projects.",
+    "Frontend developer in Cagayan de Oro, PH. I build clean, responsive web apps with ReactJS, NextJS, and Laravel — client systems and open-source work.",
   keywords: [
     "frontend developer",
     "ReactJS",
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "Mel Alejandrino",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Mel Alejandrino — Frontend Developer",
     description:
       "Frontend developer specializing in ReactJS, NextJS, and Laravel. Portfolio featuring client work and personal projects.",
@@ -89,30 +92,63 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Mel Alejandrino",
-              givenName: "Mel Carlo",
-              familyName: "Alejandrino",
-              jobTitle: "Frontend Developer",
-              email: "alejandrino.mel002@gmail.com",
-              url: "https://github.com/melalejandrino",
-              sameAs: [
-                "https://github.com/melalejandrino",
-                "https://linkedin.com/in/melcarlo",
-              ],
-              knowsAbout: [
-                "ReactJS",
-                "NextJS",
-                "Laravel",
-                "TypeScript",
-                "JavaScript",
-                "PHP",
-                "Tailwind CSS",
-                "Node.js",
-                "Sanity CMS",
-                "Radix UI",
-                "TanStack Virtual",
-                "shadcn/ui",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  "@id": `${siteUrl}/#person`,
+                  name: "Mel Alejandrino",
+                  givenName: "Mel Carlo",
+                  familyName: "Alejandrino",
+                  jobTitle: "Frontend Developer",
+                  email: "alejandrino.mel002@gmail.com",
+                  url: siteUrl,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Cagayan de Oro",
+                    addressCountry: "PH",
+                  },
+                  worksFor: {
+                    "@type": "Organization",
+                    name: "Syntactics Inc.",
+                    url: "https://syntacticsinc.com",
+                  },
+                  sameAs: [
+                    "https://github.com/melalejandrino",
+                    "https://linkedin.com/in/melcarlo",
+                  ],
+                  knowsAbout: [
+                    "ReactJS",
+                    "NextJS",
+                    "Laravel",
+                    "TypeScript",
+                    "JavaScript",
+                    "PHP",
+                    "Tailwind CSS",
+                    "Node.js",
+                    "Sanity CMS",
+                    "Radix UI",
+                    "TanStack Virtual",
+                    "shadcn/ui",
+                  ],
+                },
+                {
+                  // ponytail: no SearchAction — the site has no search (SEO.md §18).
+                  "@type": "WebSite",
+                  "@id": `${siteUrl}/#website`,
+                  url: siteUrl,
+                  name: "Mel Alejandrino",
+                  inLanguage: "en",
+                  publisher: { "@id": `${siteUrl}/#person` },
+                },
+                {
+                  "@type": "ProfilePage",
+                  "@id": `${siteUrl}/#webpage`,
+                  url: siteUrl,
+                  name: "Mel Alejandrino — Frontend Developer",
+                  isPartOf: { "@id": `${siteUrl}/#website` },
+                  about: { "@id": `${siteUrl}/#person` },
+                  mainEntity: { "@id": `${siteUrl}/#person` },
+                },
               ],
             }),
           }}

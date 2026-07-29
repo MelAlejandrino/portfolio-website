@@ -10,7 +10,7 @@ function ProjectCard({ project }: { project: Project }) {
       <span className="font-mono text-xs tracking-[0.02em] text-on-surface-variant">
         {project.company ?? "Personal project"}
       </span>
-      <h3 className="text-base font-semibold text-on-surface">{project.name}</h3>
+      <h4 className="text-base font-semibold text-on-surface">{project.name}</h4>
       <p className="text-sm text-on-surface-variant leading-relaxed">{project.description}</p>
       {project.url && (
         <a
