@@ -1,171 +1,183 @@
 import { clientProjects, experiences, personalProjects, skillGroups } from "./portfolio.data";
+import type { Project } from "./portfolio.types";
 import { Hero } from "./components/Hero";
+
+// ponytail: cards are identical for client + personal work, so one local component
+// instead of two blocks of repeated markup. Stays in this file — nothing else uses it.
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-col gap-3 p-6 bg-surface-container-low border border-outline-variant rounded-sm transition-colors hover:border-outline">
+      <span className="font-mono text-xs tracking-[0.02em] text-on-surface-variant">
+        {project.company ?? "Personal project"}
+      </span>
+      <h3 className="text-base font-semibold text-on-surface">{project.name}</h3>
+      <p className="text-sm text-on-surface-variant leading-relaxed">{project.description}</p>
+      {project.url && (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto pt-1 font-mono text-xs text-primary hover:underline"
+        >
+          Visit site <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </div>
+  );
+}
 
 export const PortfolioView = () => {
   return (
     <main id="content">
-      
       {/* ══════════ HERO ══════════ */}
-      <Hero>
-        <p className="font-display text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.15] tracking-[-0.02em] text-foreground text-pretty max-w-[85%]">
-          Frontend developer specializing in ReactJS and NextJS.
-        </p>
-        <p className="mt-6 text-[clamp(0.875rem,1.5vw,1.125rem)] font-light leading-relaxed text-muted text-pretty max-w-[55ch]">
-          I build clean, responsive interfaces for real business problems, with backend knowledge
-          in Laravel and Node.js that keeps full-stack collaboration seamless. Experienced
-          working in agile teams to deliver client-specific web applications.
-        </p>
-      </Hero>
+      <Hero />
 
       {/* ══════════ EXPERIENCE ══════════ */}
       <section
         aria-label="Work experience"
-        className="px-5 sm:px-8 section-entrance"
+        className="py-24 px-6 border-t border-outline-variant section-entrance"
         style={{ animationDelay: "350ms" }}
       >
-        {experiences.map((exp) => (
-          <div key={exp.role + exp.company} className="mb-28 sm:mb-40">
-            <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-foreground text-balance max-w-[90%]">
-              {exp.role}
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-[-0.01em] text-primary mb-3">
+              Experience
             </h2>
-            <p className="mt-4 text-sm font-light text-muted">
-              at{" "}
-              {exp.companyUrl ? (
-                <a
-                  href={exp.companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${exp.company} website`}
-                  className="font-medium text-foreground hover:text-primary transition-colors duration-150 ease-out"
-                >
-                  {exp.company}
-                </a>
-              ) : (
-                <span className="font-medium text-foreground">{exp.company}</span>
-              )}
-              {" "}· {exp.period}
+            <p className="text-on-surface-variant max-w-xl">
+              Client-facing web and business systems, delivered in agile teams.
             </p>
-            <ul className="mt-8 flex flex-col gap-4 max-w-[55ch]" aria-label={`Responsibilities at ${exp.company}`}>
-              {exp.highlights.map((item, i) => (
-                <li
-                  key={i}
-                  className="text-[clamp(0.875rem,1.4vw,1rem)] font-light leading-relaxed text-muted text-pretty pl-5 relative before:absolute before:left-0 before:top-[0.55em] before:w-1 before:h-1 before:rounded-full before:bg-primary/50"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
-        ))}
-      </section>
 
-      <hr className="mt-28 sm:mt-40 border-0" role="presentation" />
+          <div className="max-w-3xl">
+            {experiences.map((exp) => (
+              <article
+                key={exp.role + exp.company}
+                className="py-5 border-b border-outline-variant last:border-b-0"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="text-base font-semibold text-on-surface">
+                    {exp.role}
+                    <span className="text-on-surface-variant font-normal"> · </span>
+                    {exp.companyUrl ? (
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${exp.company} website`}
+                        className="text-primary hover:underline"
+                      >
+                        {exp.company}
+                      </a>
+                    ) : (
+                      exp.company
+                    )}
+                  </h3>
+                  <span className="font-mono text-xs tracking-[0.02em] text-on-surface-variant">
+                    {exp.period}
+                  </span>
+                </div>
+
+                <ul
+                  className="mt-4 flex flex-col gap-2"
+                  aria-label={`Responsibilities at ${exp.company}`}
+                >
+                  {exp.highlights.map((item) => (
+                    <li
+                      key={item}
+                      className="text-sm text-on-surface-variant leading-relaxed pl-4 relative before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-px before:bg-outline"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ══════════ PROJECTS ══════════ */}
       <section
         aria-label="Projects"
-        className="px-5 sm:px-8 section-entrance"
+        className="py-24 px-6 border-t border-outline-variant bg-surface-container-low section-entrance"
         style={{ animationDelay: "500ms" }}
       >
-        {/* ── Client work accordion ── */}
-        <details className="group">
-          <summary className="list-none [&::-webkit-details-marker]:hidden marker:content-none w-full flex items-center justify-between gap-4 py-3 cursor-pointer">
-            <span className="font-display text-[clamp(1.25rem,2.5vw,1.75rem)] font-bold tracking-[-0.01em] text-foreground group-hover:text-primary transition-colors duration-150 ease-out">
-              Client work
-              <span className="text-muted group-hover:text-primary transition-colors duration-150 ease-out ml-2 font-light text-[0.7em]">
-                (3)
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              className="flex-shrink-0 font-body text-xl font-light text-muted group-hover:text-primary transition-colors duration-150 ease-out"
-            >
-              <span className="group-open:hidden">+</span>
-              <span className="hidden group-open:inline">−</span>
-            </span>
-          </summary>
-          <div className="flex flex-col gap-10 sm:gap-12 pt-2 pb-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-[-0.01em] text-primary mb-3">
+              Projects
+            </h2>
+            <p className="text-on-surface-variant max-w-xl">
+              Business systems built for clients, and libraries and sites built for myself.
+            </p>
+          </div>
+
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.05em] text-on-surface-variant mb-4">
+            Client work
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {clientProjects.map((project) => (
-              <div key={project.name}>
-                <h3 className="font-display text-[clamp(1.125rem,2vw,1.5rem)] font-bold tracking-[-0.01em] text-foreground text-balance">
-                  {project.name}
-                </h3>
-                {project.company && (
-                  <p className="mt-1 text-sm font-light text-muted">
-                    {project.company}
-                  </p>
-                )}
-                <p className="mt-2 text-[clamp(0.875rem,1.3vw,1rem)] font-light leading-relaxed text-muted text-pretty max-w-[55ch]">
-                  {project.description}
-                </p>
-              </div>
+              <ProjectCard key={project.name} project={project} />
             ))}
           </div>
-        </details>
 
-        {/* ── Personal projects accordion ── */}
-        <details className="group mt-6 sm:mt-8">
-          <summary className="list-none [&::-webkit-details-marker]:hidden marker:content-none w-full flex items-center justify-between gap-4 py-3 cursor-pointer">
-            <span className="font-display text-[clamp(1.25rem,2.5vw,1.75rem)] font-bold tracking-[-0.01em] text-foreground group-hover:text-primary transition-colors duration-150 ease-out">
-              Personal projects
-              <span className="text-muted group-hover:text-primary transition-colors duration-150 ease-out ml-2 font-light text-[0.7em]">
-                (2)
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              className="flex-shrink-0 font-body text-xl font-light text-muted group-hover:text-primary transition-colors duration-150 ease-out"
-            >
-              <span className="group-open:hidden">+</span>
-              <span className="hidden group-open:inline">−</span>
-            </span>
-          </summary>
-          <div className="flex flex-col gap-10 sm:gap-12 pt-2 pb-4">
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.05em] text-on-surface-variant mt-12 mb-4">
+            Personal projects
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {personalProjects.map((project) => (
-              <div key={project.name}>
-                <h3 className="font-display text-[clamp(1.25rem,2.5vw,1.75rem)] font-bold tracking-[-0.02em] text-foreground text-balance">
-                  {project.name}
-                </h3>
-                <p className="mt-2 text-[clamp(0.875rem,1.4vw,1.063rem)] font-light leading-relaxed text-muted text-pretty max-w-[55ch]">
-                  {project.description}
-                </p>
-                {project.url && (
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-2 text-sm font-light text-primary hover:underline transition-colors duration-150 ease-out"
-                  >
-                    Visit site <span aria-hidden="true">↗</span>
-                  </a>
-                )}
-              </div>
+              <ProjectCard key={project.name} project={project} />
             ))}
           </div>
-        </details>
+        </div>
       </section>
-
-      <hr className="mt-28 sm:mt-40 border-0" role="presentation" />
 
       {/* ══════════ SKILLS ══════════ */}
       <section
         aria-label="Technical skills"
-        className="mb-32 sm:mb-48 px-5 sm:px-8 section-entrance"
+        className="py-24 px-6 border-t border-outline-variant section-entrance"
         style={{ animationDelay: "650ms" }}
       >
-        <div className="flex flex-col gap-14 sm:gap-18">
-          {skillGroups.map((group) => (
-            <div key={group.category}>
-              <h2 className="font-display text-[clamp(1.25rem,2.5vw,1.75rem)] font-bold tracking-[-0.01em] text-foreground mb-3">
-                {group.category}
-              </h2>
-              <p className="text-[clamp(0.875rem,1.3vw,1rem)] font-light leading-relaxed text-muted max-w-[65ch]">
-                {group.skills.join(" · ")}
-              </p>
-            </div>
-          ))}
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-[-0.01em] text-primary mb-3">
+              Stack
+            </h2>
+            <p className="text-on-surface-variant max-w-xl">
+              Tools and practices I work with day to day.
+            </p>
+          </div>
+
+          <dl className="max-w-3xl">
+            {skillGroups.map((group) => (
+              <div
+                key={group.category}
+                className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 py-5 border-b border-outline-variant last:border-b-0"
+              >
+                <dt className="md:w-48 flex-shrink-0 text-[11px] font-bold uppercase tracking-[0.05em] text-on-surface-variant">
+                  {group.category}
+                </dt>
+                <dd className="font-mono text-sm leading-relaxed text-on-surface">
+                  {group.skills.join(" · ")}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
+
+      {/* ══════════ FOOTER ══════════ */}
+      <footer className="py-12 px-6 border-t border-outline-variant">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs text-on-surface-variant">
+          <span>Mel Alejandrino — Frontend Developer</span>
+          <a
+            href="mailto:alejandrino.mel002@gmail.com"
+            className="text-on-surface hover:text-primary transition-colors"
+          >
+            alejandrino.mel002@gmail.com
+          </a>
+        </div>
+      </footer>
     </main>
   );
 };

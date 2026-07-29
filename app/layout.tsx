@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Loader } from "@/features/portfolio/components/Loader";
 import "./globals.css";
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
@@ -36,8 +36,7 @@ export const metadata: Metadata = {
     "Mel Alejandrino",
     "portfolio",
     "Syntactics Inc.",
-    "jejeui",
-    "Barely Fairy",
+    "Fluss",
   ],
   authors: [{ name: "Mel Alejandrino" }],
   creator: "Mel Alejandrino",
@@ -73,12 +72,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolageGrotesque.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded focus:outline-none"
         >
           Skip to content
         </a>

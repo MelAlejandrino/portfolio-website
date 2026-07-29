@@ -1,12 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: oklch(1.000 0.000 0);
-  --color-foreground: oklch(0.13 0.008 270);
-  --color-surface: oklch(0.965 0.000 0);
-  --color-primary: oklch(0.46 0.19 270);
-  --color-accent: oklch(0.45 0.12 185);
-  --color-muted: oklch(0.40 0.005 270);
+  /* WINDRUNNER tokens — see DESIGN_SYSTEM.md frontmatter */
+  --color-background: #fcf9f4;
+  --color-foreground: #1c1c19;
+  --color-primary: #455548; /* §2 — Muted Forest Green, the stated Primary & Accent */
+  --color-on-primary: #ffffff;
+  /* Deviation from the WINDRUNNER palette: a saturated forest green for the hero
+     title only. Everything else stays on --color-primary. 7.3:1 on background. */
+  --color-primary-display: #2f5d3a;
+  --color-muted: #434843;
+  --color-on-surface: #1c1c19;
+  --color-on-surface-variant: #434843;
+  --color-outline: #737873;
+  --color-outline-variant: #c3c8c1;
+  --color-surface-container-low: #f6f3ee;
+  --color-surface-container-high: #ebe8e3;
   --font-display: var(--font-display);
   --font-body: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

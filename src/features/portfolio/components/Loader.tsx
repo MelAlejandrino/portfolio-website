@@ -38,7 +38,7 @@ export function Loader() {
       role="presentation"
     >
       <p
-        className="font-display text-xl font-bold tracking-[-0.02em] text-foreground"
+        className="font-display text-xl font-semibold tracking-[-0.02em] text-primary"
         style={{
           animation:
             phase === "enter"
@@ -48,7 +48,7 @@ export function Loader() {
       >
         Mel Alejandrino
       </p>
-      <div className="mt-4 h-px w-14 bg-primary/50 origin-center overflow-hidden">
+      <div className="mt-4 h-px w-14 bg-outline-variant origin-center overflow-hidden">
         <div
           className="h-full w-full bg-primary origin-left"
           style={{

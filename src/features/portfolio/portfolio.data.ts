@@ -65,17 +65,9 @@ export const skillGroups: SkillGroup[] = [
 
 export const personalProjects: Project[] = [
   {
-    name: "Barely Fairy",
-    description:
-      "A browsable catalog of amigurumi, flowers, and accessories backed by Sanity CMS. Three pages — home with featured items, a filterable and searchable product listing, and individual product detail. No commerce, just discovery — the site feels like flipping through a maker's personal sketchbook.",
-    url: "https://barelyfairy.vercel.app/",
-    tier: "personal",
-  },
-  {
-    name: "jejeui",
-    description:
-      "A collection of reusable React components built on top of shadcn/ui — an image uploader, virtualized dropdown, autocomplete, inline CRUD data grid, and a limitless dropdown with infinite scroll. Components install individually via CLI, with a fumadocs documentation site including live previews and props reference. Built with Next.js, Tailwind CSS v4, Radix UI, and TanStack Virtual.",
-    url: "https://jejeui.vercel.app/",
+    name: "Fluss",
+    description: "A minimal desktop media downloader.",
+    url: "https://fluss-webapp.vercel.app/",
     tier: "personal",
   },
 ];
