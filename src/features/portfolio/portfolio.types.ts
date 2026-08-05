@@ -1,20 +1,16 @@
-export interface Experience {
-  role: string;
-  company: string;
-  companyUrl?: string;
-  period: string;
-  highlights: string[];
-}
-
-export interface SkillGroup {
-  category: string;
-  skills: string[];
-}
+export type ProjectTier = "built" | "in-progress" | "experiments";
 
 export interface Project {
+  id: string;
   name: string;
   description: string;
   url?: string;
   company?: string;
-  tier: "personal" | "client";
+  tier: ProjectTier;
+  tags: string[];
+}
+
+export interface CurrentlyItem {
+  label: string;
+  value: string;
 }

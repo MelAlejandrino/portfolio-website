@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* WINDRUNNER tokens — see DESIGN_SYSTEM.md frontmatter */
   --color-background: #fcf9f4;
   --color-foreground: #1c1c19;
-  --color-primary: #455548; /* §2 — Muted Forest Green, the stated Primary & Accent */
+  --color-primary: #455548;
   --color-on-primary: #ffffff;
-  /* Deviation from the WINDRUNNER palette: a saturated forest green for the hero
-     title only. Everything else stays on --color-primary. 7.3:1 on background. */
   --color-primary-display: #2f5d3a;
   --color-muted: #434843;
   --color-on-surface: #1c1c19;
@@ -33,34 +30,19 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ── Focus styles ── */
-
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* ── Reduced motion ── */
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* ── Keyframes ── */
-
-@keyframes section-enter {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -80,10 +62,4 @@ html {
   to {
     opacity: 1;
   }
-}
-
-/* ── Section entrance utility ── */
-
-.section-entrance {
-  animation: section-enter 500ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) both;
 }

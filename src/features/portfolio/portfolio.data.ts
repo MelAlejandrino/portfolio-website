@@ -1,97 +1,88 @@
-import type { Experience, Project, SkillGroup } from "./portfolio.types";
+import type { Project, CurrentlyItem } from "./portfolio.types";
 
-export const experiences: Experience[] = [
+export interface StackGroup {
+  category: string;
+  items: string[];
+}
+
+export const projects: Project[] = [
   {
-    role: "Web Developer",
+    id: "001",
+    name: "Fluss",
+    description:
+      "A minimal desktop media downloader. Clean interface, focused on doing one thing well.",
+    url: "https://getfluss.vercel.app/",
+    tier: "built",
+    tags: ["Electron", "Node.js"],
+  },
+  {
+    id: "002",
+    name: "Agricultural Operations Management",
+    description:
+      "A management platform that centralizes daily operations for a multi-site farming enterprise — inventory, purchase orders, crop scheduling, field mapping, sales, and customer records.",
     company: "Syntactics Inc.",
-    companyUrl: "https://www.syntacticsinc.com/",
-    period: "July 2025 to present",
-    highlights: [
-      "Develop custom business management systems for multiple clients across different industries, adapting to varied and complex requirements.",
-      "Build and maintain WordPress websites end-to-end — landing pages, plugin updates, cache clearing, backup checks, form troubleshooting, layout fixes, and PHP error resolution.",
-      "Collaborate on full-stack projects using ReactJS, Laravel, and MySQL in an agile team, managing tasks through Bitrix24 with QA and PM approval workflows.",
-    ],
+    tier: "built",
+    tags: ["React", "Laravel", "MySQL"],
+  },
+  {
+    id: "003",
+    name: "Retail Operations Platform",
+    description:
+      "A central dashboard for managing an entire online retail operation — product catalogs, order tracking, payment processing, and reporting with real-time notifications.",
+    company: "Syntactics Inc.",
+    tier: "built",
+    tags: ["React", "Laravel", "MySQL"],
+  },
+  {
+    id: "004",
+    name: "Business Operations Platform",
+    description:
+      "A unified workspace for multi-entity service businesses — client management, job estimating, work orders, invoicing, inventory, and P&L reporting across branches.",
+    company: "Syntactics Inc.",
+    tier: "built",
+    tags: ["React", "Laravel", "MySQL"],
   },
 ];
 
-export const skillGroups: SkillGroup[] = [
+export const currently: CurrentlyItem[] = [
+  { label: "Building", value: "Business systems at Syntactics Inc." },
+  { label: "Exploring", value: "Desktop apps and creative tools" },
+  { label: "Learning", value: "New frameworks and design patterns" },
+];
+
+export const contactLinks = [
   {
-    category: "Languages",
-    skills: ["JavaScript", "PHP", "Python", "HTML", "CSS"],
+    label: "GitHub",
+    href: "https://github.com/melalejandrino",
+    aria: "GitHub profile",
   },
   {
-    category: "Frameworks & Libraries",
-    skills: [
-      "ReactJS",
-      "NextJS",
-      "Laravel",
-      "Inertia",
-      "Tailwind CSS",
-      "Shadcn/UI",
-      "Material UI",
-      "NodeJS",
-      "Express",
-      "Vue",
-    ],
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/melcarlo",
+    aria: "LinkedIn profile",
+  },
+  {
+    label: "Email",
+    href: "mailto:alejandrino.mel002@gmail.com",
+    aria: "Email address",
+  },
+];
+
+export const stack: StackGroup[] = [
+  {
+    category: "Frontend",
+    items: ["React", "Next.js", "Vue", "Inertia", "Tailwind CSS", "Shadcn/UI"],
+  },
+  {
+    category: "Backend",
+    items: ["PHP", "Laravel", "Node.js", "Express", "Python", "Rust"],
   },
   {
     category: "Databases",
-    skills: ["MySQL", "SQLite", "MongoDB", "Firebase", "Supabase"],
+    items: ["MySQL", "SQLite", "MongoDB", "Firebase", "Supabase"],
   },
   {
-    category: "Tools & Platforms",
-    skills: [
-      "Git",
-      "GitHub",
-      "Bitbucket",
-      "Figma",
-      "Postman",
-      "Vercel",
-      "Railway",
-      "SSH",
-    ],
-  },
-  {
-    category: "Practices",
-    skills: [
-      "Agile Methodologies",
-      "Responsive Design",
-      "API Development",
-      "Component-Based Architecture",
-      "Web Security Practices",
-    ],
-  },
-];
-
-export const personalProjects: Project[] = [
-  {
-    name: "Fluss",
-    description: "A minimal desktop media downloader.",
-    url: "https://fluss-webapp.vercel.app/",
-    tier: "personal",
-  },
-];
-
-export const clientProjects: Project[] = [
-  {
-    name: "Agricultural Operations Management System",
-    description:
-      "A management platform that centralizes daily operations for a multi-site farming enterprise — inventory, purchase orders, crop maintenance scheduling, field mapping, sales, and customer records. Role-specific views for field workers, supervisors, and administrators replace spreadsheets and paper logs with one organized hub.",
-    company: "Syntactics Inc.",
-    tier: "client",
-  },
-  {
-    name: "All-in-One Retail Operations Platform",
-    description:
-      "A central dashboard for managing an entire online retail operation — product catalogs, order tracking, payment processing, and reporting. Real-time notifications and role-based permissions keep staff aligned, with a companion mobile experience for teams in the field.",
-    company: "Syntactics Inc.",
-    tier: "client",
-  },
-  {
-    name: "End-to-End Business Operations Platform",
-    description:
-      "A unified workspace for multi-entity service businesses — client management, job estimating, work order tracking, invoicing, collections, inventory, and expenses. Role-specific access keeps each team member in their workflow, while leadership tracks performance through P&L, income statements, and productivity reports across every branch.",
-    company: "Syntactics Inc.",
-    tier: "client",
+    category: "Tools",
+    items: ["Git", "GitHub", "Figma", "Postman", "Vercel", "Railway"],
   },
 ];

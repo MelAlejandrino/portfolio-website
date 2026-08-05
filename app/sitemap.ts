@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://meldev-ph.vercel.app",
       // ponytail: fixed date, not new Date() — SEO.md §4 forbids a lastmod that
       // changes on every request. Bump this by hand when the page content changes.
-      lastModified: "2026-07-29",
+      lastModified: "2026-08-05",
       changeFrequency: "monthly",
       priority: 1,
     },

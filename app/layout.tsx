@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Loader } from "@/features/portfolio/components/Loader";
+import NoiseTexture from "@/features/portfolio/components/NoiseTexture";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -23,23 +24,20 @@ const siteUrl = "https://meldev-ph.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  // ponytail: 51 chars — under Google's ~60 char cutoff. Laravel dropped from the
-  // title on purpose; it's still in the description, keywords, and JSON-LD knowsAbout.
-  title: "Mel Alejandrino — React & Next.js Frontend Developer",
-  // ponytail: 149 chars — Google truncates around 155–160, so this renders whole.
+  title: "Made by Mel — Mel Alejandrino",
   description:
-    "Frontend developer in Cagayan de Oro, PH. I build clean, responsive web apps with ReactJS, NextJS, and Laravel — client systems and open-source work.",
+    "Developer who builds software, websites, desktop apps, and things I probably didn't need to build. Based in Cagayan de Oro, PH.",
   keywords: [
-    "frontend developer",
-    "ReactJS",
-    "NextJS",
-    "Laravel",
-    "web developer",
-    "Philippines",
     "Mel Alejandrino",
+    "developer",
     "portfolio",
-    "Syntactics Inc.",
+    "React",
+    "Next.js",
+    "Laravel",
     "Fluss",
+    "Made by Mel",
+    "Cagayan de Oro",
+    "Philippines",
   ],
   authors: [{ name: "Mel Alejandrino" }],
   creator: "Mel Alejandrino",
@@ -47,19 +45,19 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Mel Alejandrino — Frontend Developer",
+    title: "Made by Mel — Mel Alejandrino",
     description:
-      "Frontend developer specializing in ReactJS, NextJS, and Laravel. Portfolio featuring client work and personal open-source projects.",
+      "Developer who builds software, websites, desktop apps, and things I probably didn't need to build.",
     url: siteUrl,
     type: "website",
     locale: "en_US",
-    siteName: "Mel Alejandrino",
+    siteName: "Made by Mel",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mel Alejandrino — Frontend Developer",
+    title: "Made by Mel — Mel Alejandrino",
     description:
-      "Frontend developer specializing in ReactJS, NextJS, and Laravel. Portfolio featuring client work and personal projects.",
+      "Developer who builds software, websites, desktop apps, and things I probably didn't need to build.",
   },
   robots: {
     index: true,
@@ -85,6 +83,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Loader />
+        <NoiseTexture />
         {children}
         {/* JSON-LD structured data */}
         <script
@@ -117,18 +116,19 @@ export default function RootLayout({
                     "https://linkedin.com/in/melcarlo",
                   ],
                   knowsAbout: [
-                    "ReactJS",
-                    "NextJS",
+                    "React",
+                    "Next.js",
+                    "Vue",
                     "Laravel",
+                    "PHP",
+                    "Python",
+                    "Rust",
+                    "Node.js",
                     "TypeScript",
                     "JavaScript",
-                    "PHP",
                     "Tailwind CSS",
-                    "Node.js",
-                    "Sanity CMS",
-                    "Radix UI",
-                    "TanStack Virtual",
-                    "shadcn/ui",
+                    "MySQL",
+                    "MongoDB",
                   ],
                 },
                 {
@@ -144,7 +144,7 @@ export default function RootLayout({
                   "@type": "ProfilePage",
                   "@id": `${siteUrl}/#webpage`,
                   url: siteUrl,
-                  name: "Mel Alejandrino — Frontend Developer",
+                  name: "Made by Mel — Mel Alejandrino",
                   isPartOf: { "@id": `${siteUrl}/#website` },
                   about: { "@id": `${siteUrl}/#person` },
                   mainEntity: { "@id": `${siteUrl}/#person` },

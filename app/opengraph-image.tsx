@@ -1,11 +1,9 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Mel Alejandrino — Frontend Developer, Cagayan de Oro, PH";
+export const alt = "Made by Mel — Developer who builds things. Cagayan de Oro, PH";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// ponytail: one file — Next reuses this for og:image and twitter:image.
-// Default ImageResponse font, no Fraunces fetch at build time.
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -21,14 +19,22 @@ export default function OpengraphImage() {
           color: "#1c1c19",
         }}
       >
-        <div style={{ fontSize: 24, letterSpacing: 1, color: "#455548" }}>
-          FRONTEND DEVELOPER — CAGAYAN DE ORO, PH
+        <div style={{ fontSize: 20, letterSpacing: 2, color: "#737873" }}>
+          MADE BY MEL
         </div>
-        <div style={{ fontSize: 96, fontWeight: 600, color: "#2f5d3a", marginTop: 24 }}>
-          Mel Alejandrino
+        <div
+          style={{
+            fontSize: 88,
+            fontWeight: 700,
+            color: "#2f5d3a",
+            marginTop: 16,
+            lineHeight: 1,
+          }}
+        >
+          I build things.
         </div>
-        <div style={{ fontSize: 36, marginTop: 24, color: "#434843" }}>
-          ReactJS · NextJS · Laravel
+        <div style={{ fontSize: 28, marginTop: 32, color: "#434843" }}>
+          Mel Alejandrino — Cagayan de Oro, PH
         </div>
       </div>
     ),

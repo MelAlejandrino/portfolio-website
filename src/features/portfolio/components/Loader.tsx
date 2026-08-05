@@ -38,7 +38,7 @@ export function Loader() {
       role="presentation"
     >
       <p
-        className="font-display text-xl font-semibold tracking-[-0.02em] text-primary"
+        className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-primary"
         style={{
           animation:
             phase === "enter"
@@ -46,7 +46,7 @@ export function Loader() {
               : "none",
         }}
       >
-        Mel Alejandrino
+        Made by Mel
       </p>
       <div className="mt-4 h-px w-14 bg-outline-variant origin-center overflow-hidden">
         <div
