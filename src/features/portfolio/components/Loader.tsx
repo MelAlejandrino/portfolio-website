@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { publication } from "../portfolio.data";
 
 export function Loader() {
-  const [phase, setPhase] = useState<"enter" | "hold" | "exit" | "done">(
-    "enter",
-  );
+  const [phase, setPhase] = useState<"enter" | "exit" | "done">("enter");
 
   useEffect(() => {
     if (sessionStorage.getItem("v")) {
@@ -16,12 +15,11 @@ export function Loader() {
 
     sessionStorage.setItem("v", "1");
 
-    const enterTimer = setTimeout(() => setPhase("hold"), 400);
-    const exitTimer = setTimeout(() => setPhase("exit"), 1800);
-    const doneTimer = setTimeout(() => setPhase("done"), 2300);
+    // Short enough to read the masthead, not long enough to be a gate.
+    const exitTimer = setTimeout(() => setPhase("exit"), 900);
+    const doneTimer = setTimeout(() => setPhase("done"), 1400);
 
     return () => {
-      clearTimeout(enterTimer);
       clearTimeout(exitTimer);
       clearTimeout(doneTimer);
     };
@@ -31,34 +29,25 @@ export function Loader() {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-background transition-opacity duration-500 ease-out ${
+      className={`no-print fixed inset-0 z-50 flex flex-col items-center justify-center bg-paper px-6 transition-opacity duration-500 ease-out ${
         phase === "exit" ? "opacity-0" : "opacity-100"
       }`}
-      aria-hidden={phase === "exit"}
+      aria-hidden="true"
       role="presentation"
     >
       <p
-        className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-primary"
-        style={{
-          animation:
-            phase === "enter"
-              ? "loader-fade-in 400ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) both"
-              : "none",
-        }}
+        className="font-headline text-center text-[clamp(1.1rem,4vw,1.9rem)] font-medium tracking-[0.06em] text-ink uppercase"
+        style={{ animation: "ink-fade 500ms ease-out both" }}
       >
-        Made by Mel
+        {publication.name}
       </p>
-      <div className="mt-4 h-px w-14 bg-outline-variant origin-center overflow-hidden">
-        <div
-          className="h-full w-full bg-primary origin-left"
-          style={{
-            animation:
-              phase === "enter" || phase === "hold"
-                ? "loader-line-draw 600ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) both"
-                : "none",
-          }}
-        />
-      </div>
+      <div className="mt-4 h-px w-32 origin-left bg-ink" style={{ animation: "rule-draw 700ms cubic-bezier(0.16, 1, 0.3, 1) both" }} />
+      <p
+        className="meta-sm mt-4 text-ink-faint"
+        style={{ animation: "ink-fade 500ms ease-out 250ms both" }}
+      >
+        {publication.volume} · {publication.issue} · {publication.established}
+      </p>
     </div>
   );
 }

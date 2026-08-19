@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Personal portfolio site for Mel Alejandrino, a frontend developer. Single-page app built with Next.js 16 (App Router), Tailwind CSS v4, and TypeScript.
+Personal portfolio for Mel Alejandrino, a web developer — designed as a classic
+newspaper. Single page, Next.js 16 (App Router),
+Tailwind CSS v4, TypeScript.
 
 ## Commands
 
@@ -17,30 +19,34 @@ npm run lint     # Run ESLint
 
 ## Architecture
 
-- **App Router** (`app/`) — single route entry (`app/page.tsx`) that renders `PortfolioView`.
-- **Feature module** (`src/features/portfolio/`) — all portfolio logic and UI lives here:
-  - `PortfolioView.tsx` — main page composition (hero, experience, projects, stack, footer) plus the local `ProjectCard`
-  - `portfolio.data.ts` — static content (experiences, projects, skill groups)
-  - `portfolio.types.ts` — TypeScript interfaces (`Experience`, `Project`, `SkillGroup`)
-  - `components/` — `Hero`, `Loader`
-  - `index.ts` — barrel export
-- **`@/*` path alias** maps to `./src/*` (configured in `tsconfig.json`).
-- **Route entries are thin** — `app/page.tsx` imports and renders the feature view, nothing else.
+- **App Router** (`app/`) — single route (`app/page.tsx`) that renders `PortfolioView`. It sets `revalidate = 86400` so the masthead's edition date stays current.
+- **Feature module** (`src/features/portfolio/`):
+  - `PortfolioView.tsx` — the whole publication: front page, work, profile, employment ledger, technical index, notes, back page, footer. Server component; local presentational helpers (`SectionHead`, `StoryHeading`, `StoryMeta`, `StoryLink`, `LedgerEntry`, `NoteEntry`) live here.
+  - `portfolio.data.ts` — all content: publication metadata, navigation, lead story, projects, positions, notes, technical index, facts, contact.
+  - `portfolio.types.ts` — interfaces (`Publication`, `Project`, `Position`, `Note`, `IndexRow`, `Fact`, `ContactEntry`, `NavItem`).
+  - `components/` — `Masthead` (server), `NavStrip` (client), `Figure` (server), `Reveal` (client), `Loader` (client).
+  - `index.ts` — barrel export.
+- **`@/*` path alias** maps to `./src/*`.
+- **Route entries are thin** — `app/page.tsx` renders the feature view and nothing else.
+- **Only three client components.** `NavStrip` (active section), `Reveal` (scroll reveal), `Loader` (session intro). Everything else is server-rendered.
 
 ## Styling
 
-- **Design system** — `DESIGN_SYSTEM.md` (WINDRUNNER) is the source of truth for color, type, spacing, and layout patterns. Section wrappers, cards, and rows follow §12–17 verbatim.
-- **Tailwind CSS v4** — uses `@import "tailwindcss"` and `@theme` block in `globals.css` (not `tailwind.config`).
-- **Fonts** — Fraunces (`--font-display`) for headings, Geist (`--font-geist-sans`) for body, Geist Mono (`--font-geist-mono`) for periods, labels, and skill lists. All loaded via `next/font/google`.
-- **Animations** — custom keyframes (`section-enter`, `loader-line-draw`, `loader-fade-in`) with `.section-entrance` utility class. Respects `prefers-reduced-motion`. No framer-motion — §18's motion system is approximated with these CSS keyframes and fixed `animationDelay` values.
-- **Color tokens**: `background`, `foreground`, `primary` (#455548, the §2 forest green), `on-primary`, `primary-display` (#2f5d3a — hero title only, a deliberate deviation from the WINDRUNNER palette), `muted`, `on-surface`, `on-surface-variant`, `outline`, `outline-variant`, `surface-container-low`, `surface-container-high` — use these, not raw hex. Prefer the `on-surface*` pair over `foreground`/`muted` in new markup.
-- **No shadows** — depth is tonal layering plus 1px `border-outline-variant` borders (§5).
+- **Design system** — `DESIGN_SYSTEM.md` (THE BROADSHEET) is the source of truth for colour, type, rules, layout, and components. `app/globals.css` is the implementation.
+- **Tailwind CSS v4** — `@import "tailwindcss"` plus an `@theme` block in `globals.css` (no `tailwind.config`).
+- **Colour tokens**: `paper`, `paper-raised`, `paper-deep`, `ink`, `ink-soft`, `ink-faint`, `rule`, `rule-soft`, `accent`. Use these, not raw hex. The burgundy `accent` is reserved for section kickers, the active nav folio, and link hover.
+- **Fonts** — EB Garamond (`font-headline`) for headlines, deks, and pull quotes; Source Serif 4 (`font-text`) for body copy; the system Arial/Helvetica stack (`font-meta`) for all metadata. Both webfonts load via `next/font/google`. **Do not introduce a geometric or "designer" sans** — that breaks the whole concept.
+- **Utility classes** in `globals.css`: `.meta`, `.meta-sm`, `.prose-editorial`, `.drop-cap`, `.columns-editorial`, `.rule-thick`, `.rule-double`, `.newsprint`, `.plate`, `.link-editorial`, `.link-read`, `.no-print`.
+- **No shadows, no gradients, no rounded corners.** Depth is paper tone plus 1px/2px rules. `border-radius: 0` is a rule of the system, not an oversight.
+- **Paper texture** — a fixed SVG turbulence grain on `body::before` at 5.5%. It must stay near-invisible. Note: a *percent-encoded* SVG data URI gets dropped by the Tailwind v4 CSS pipeline; the grain is base64 for that reason.
+- **Animations** — CSS keyframes only (`ink-rise`, `ink-fade`, `rule-draw`). No framer-motion; it was removed deliberately. `Reveal` adds the animation on intersection and never pre-hides content, so a page with dead JS still reads.
 
 ## Conventions
 
-- `interface` for object shapes (props, data types), not `type`.
-- Components use named `function` declarations (not arrow functions) for exported components — except `PortfolioView` which is an arrow function.
-- Data is static (no API calls, no React Query). All content is in `portfolio.data.ts`.
-- The `Loader` component is `"client"` and uses `sessionStorage` to show the intro animation only once per session.
-- **SEO is intentional** — the layout has extensive `Metadata` export and JSON-LD structured data. Preserve these during refactors.
-- **tsconfig `jsx`** — set to `"react-jsx"` (not Next.js's default `"preserve"`). This is intentional; do not change it.
+- `interface` for object shapes, not `type`.
+- Named `function` declarations for exported components — except `PortfolioView`, which is an arrow function.
+- Data is static. No API calls, no client fetching. All content lives in `portfolio.data.ts`.
+- Figures take an optional `image`; without one they print a typographic plate. To add real screenshots, drop files in `public/` and set `image` on the project.
+- **SEO is intentional** — the layout has an extensive `Metadata` export and JSON-LD (`Person`, `WebSite`, `ProfilePage`). Preserve these during refactors. `app/opengraph-image.tsx` renders the masthead; satori has no `double` border style, so that rule is drawn with two divs.
+- The `Loader` is session-once via `sessionStorage`, ~1.4s total. Keep it short.
+- **tsconfig `jsx`** — `"react-jsx"`, not Next's default `"preserve"`. Intentional; do not change.

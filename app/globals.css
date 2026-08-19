@@ -1,42 +1,276 @@
 @import "tailwindcss";
 
-@theme {
-  --color-background: #fcf9f4;
-  --color-foreground: #1c1c19;
-  --color-primary: #455548;
-  --color-on-primary: #ffffff;
-  --color-primary-display: #2f5d3a;
-  --color-muted: #434843;
-  --color-on-surface: #1c1c19;
-  --color-on-surface-variant: #434843;
-  --color-outline: #737873;
-  --color-outline-variant: #c3c8c1;
-  --color-surface-container-low: #f6f3ee;
-  --color-surface-container-high: #ebe8e3;
-  --font-display: var(--font-display);
-  --font-body: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─────────────────────────────────────────────────────────────
+   THE MEL ALEJANDRINO JOURNAL — editorial design system
+   Paper, ink, rules, and two serifs. See DESIGN_SYSTEM.md.
+   ───────────────────────────────────────────────────────────── */
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  /* Paper & ink — reads correctly in black and white. */
+  --color-paper: #f4f0e4;
+  --color-paper-raised: #efeada;
+  --color-paper-deep: #e7e1cd;
+  --color-ink: #17150f;
+  --color-ink-soft: #3a372c;
+  --color-ink-faint: #6b6553;
+  --color-rule: #b3ab93;
+  --color-rule-soft: #d5cdb6;
+  --color-accent: #6d1f1f; /* dark burgundy — used sparingly */
+
+  --font-headline: var(--font-eb-garamond), Georgia, "Times New Roman", Times,
+    serif;
+  --font-text: var(--font-source-serif), Georgia, "Times New Roman", Times,
+    serif;
+  /* ponytail: the utility face is the system sans — no webfont for metadata. */
+  --font-meta: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Nav strip clearance for in-page anchors. */
+  scroll-padding-top: 3.5rem;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Very faint aging toward the gutters — invisible unless looked for. */
+  background-image:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      rgba(255, 255, 255, 0.5),
+      transparent 60%
+    ),
+    radial-gradient(100% 60% at 0% 100%, rgba(109, 31, 31, 0.03), transparent 70%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+/* ── Paper grain ──────────────────────────────────────────────
+   ponytail: an SVG turbulence overlay replaces the old canvas
+   component — same grain, no JavaScript, no animation frame.
+   Keep the opacity low enough that it disappears when you stop
+   looking for it (§4).
+   ───────────────────────────────────────────────────────────── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzIwMCcgaGVpZ2h0PScyMDAnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPg==");
+}
+
+/* ── Metadata / utility type ───────────────────────────────── */
+
+.meta {
+  font-family: var(--font-meta);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meta-sm {
+  font-family: var(--font-meta);
+  font-size: 0.625rem;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Editorial body copy ──────────────────────────────────── */
+
+.prose-editorial p + p {
+  margin-top: 0.9em;
+  text-indent: 1.15em;
+}
+
+.prose-editorial p {
+  hyphens: auto;
+}
+
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 3.5em;
+  line-height: 0.78;
+  margin: 0.06em 0.08em 0 0;
+}
+
+.columns-editorial {
+  column-count: 2;
+  column-gap: 2rem;
+  column-rule: 1px solid var(--color-rule-soft);
+}
+
+@media (max-width: 767px) {
+  .columns-editorial {
+    column-count: 1;
+    column-rule: none;
+  }
+}
+
+/* ── Rules ────────────────────────────────────────────────── */
+
+.rule-double {
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  height: 4px;
+}
+
+.rule-thick {
+  border-top: 2px solid var(--color-ink);
+}
+
+/* ── Newsprint imagery ────────────────────────────────────── */
+
+.newsprint {
+  position: relative;
+  background-color: var(--color-paper-deep);
+}
+
+.newsprint img {
+  filter: grayscale(1) contrast(1.12) brightness(1.02);
+  transition: filter 600ms ease;
+}
+
+/* The halftone screen an image picks up when it is printed. */
+.newsprint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    var(--color-ink) 0.5px,
+    transparent 0.6px
+  );
+  background-size: 3px 3px;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+}
+
+/* §19 — subtle grayscale → colour on hover, nothing more. */
+.newsprint:hover img,
+.newsprint:focus-within img {
+  filter: grayscale(0.25) contrast(1.04) brightness(1);
+}
+
+/* Typographic plate — stands in for a photograph that does not exist. */
+.plate {
+  background-color: var(--color-paper-deep);
+  background-image:
+    radial-gradient(var(--color-ink-faint) 0.6px, transparent 0.7px),
+    linear-gradient(
+      180deg,
+      rgba(23, 21, 15, 0.05),
+      rgba(23, 21, 15, 0.11)
+    );
+  background-size:
+    4px 4px,
+    100% 100%;
+}
+
+/* ── Links ────────────────────────────────────────────────── */
+
+.link-editorial {
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 200ms ease, color 200ms ease;
+}
+
+.link-editorial:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* READ MORE → : underline appears, arrow shifts, weight lifts. */
+.link-read {
+  font-family: var(--font-meta);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease, color 200ms ease, font-weight 1ms;
+}
+
+.link-read:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  font-weight: 700;
+}
+
+.link-read .arrow {
+  display: inline-block;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-read:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ── Motion — paper and typography, nothing more (§18) ────── */
+
+@keyframes ink-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ink-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.ink-rise {
+  animation: ink-rise 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -46,20 +280,15 @@ html {
   }
 }
 
-@keyframes loader-line-draw {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
+/* ── Print: it should already be a newspaper ──────────────── */
 
-@keyframes loader-fade-in {
-  from {
-    opacity: 0;
+@media print {
+  body {
+    background: #fff;
+    color: #000;
   }
-  to {
-    opacity: 1;
+
+  .no-print {
+    display: none !important;
   }
 }

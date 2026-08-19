@@ -1,41 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { EB_Garamond, Source_Serif_4 } from "next/font/google";
 import { Loader } from "@/features/portfolio/components/Loader";
-import NoiseTexture from "@/features/portfolio/components/NoiseTexture";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-display",
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 const siteUrl = "https://meldev-ph.vercel.app";
 
+const description =
+  "Mel Alejandrino is a web developer in Cagayan de Oro, Philippines, building business systems, client platforms, and desktop software.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Made by Mel — Mel Alejandrino",
-  description:
-    "Developer who builds software, websites, desktop apps, and things I probably didn't need to build. Based in Cagayan de Oro, PH.",
+  title: "Mel Alejandrino — Web Developer, Cagayan de Oro",
+  description,
   keywords: [
     "Mel Alejandrino",
-    "developer",
+    "web developer",
+    "frontend developer",
     "portfolio",
     "React",
     "Next.js",
     "Laravel",
     "Fluss",
-    "Made by Mel",
     "Cagayan de Oro",
     "Philippines",
   ],
@@ -45,19 +44,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Made by Mel — Mel Alejandrino",
-    description:
-      "Developer who builds software, websites, desktop apps, and things I probably didn't need to build.",
+    title: "Mel Alejandrino — Web Developer, Cagayan de Oro",
+    description,
     url: siteUrl,
     type: "website",
     locale: "en_US",
-    siteName: "Made by Mel",
+    siteName: "Mel Alejandrino",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Made by Mel — Mel Alejandrino",
-    description:
-      "Developer who builds software, websites, desktop apps, and things I probably didn't need to build.",
+    title: "Mel Alejandrino — Web Developer, Cagayan de Oro",
+    description,
   },
   robots: {
     index: true,
@@ -73,17 +70,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${ebGaramond.variable} ${sourceSerif.variable} antialiased`}
     >
       <body>
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded focus:outline-none"
+          className="meta sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-ink focus:outline-none"
         >
           Skip to content
         </a>
         <Loader />
-        <NoiseTexture />
         {children}
         {/* JSON-LD structured data */}
         <script
@@ -98,7 +94,7 @@ export default function RootLayout({
                   name: "Mel Alejandrino",
                   givenName: "Mel Carlo",
                   familyName: "Alejandrino",
-                  jobTitle: "Frontend Developer",
+                  jobTitle: "Web Developer",
                   email: "alejandrino.mel002@gmail.com",
                   url: siteUrl,
                   address: {
@@ -144,7 +140,7 @@ export default function RootLayout({
                   "@type": "ProfilePage",
                   "@id": `${siteUrl}/#webpage`,
                   url: siteUrl,
-                  name: "Made by Mel — Mel Alejandrino",
+                  name: "Mel Alejandrino — Web Developer, Cagayan de Oro",
                   isPartOf: { "@id": `${siteUrl}/#website` },
                   about: { "@id": `${siteUrl}/#person` },
                   mainEntity: { "@id": `${siteUrl}/#person` },
